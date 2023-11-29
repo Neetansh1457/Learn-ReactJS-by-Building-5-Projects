@@ -1,0 +1,51 @@
+.App {
+  text-align: center;
+}
+
+input {
+  margin: 10px;
+  width: 300px;
+  height: 40px;
+  font-size: 18px;
+  padding-left: 10px;
+}
+
+button {
+  height: 40px;
+  margin: 5px;
+  border: none;
+  background-color: coral;
+  border-radius: 5px;
+  color: white;
+}
+
+ul {
+  display: grid;
+  place-items: center;
+}
+
+li {
+  list-style-type: none;
+  width: 300px;
+  height: 40px;
+  background-color: #00df6c;
+  margin: 10px;
+  padding-top: 20px;
+  color: white;
+  font-family: monospace;
+  font-size: 23px;
+}
+
+#task {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+h1 {
+  font-family: monospace;
+}
