@@ -1,9 +1,19 @@
-import { useState } from "react";
 import "./App.css";
+import { useState, useEffect } from "react";
+import useSWR from "swr";
+
+const fetcher = (...args) => {
+  fetch(...args).then((res) => res.json());
+};
 
 function App() {
   const [gameTitle, setGameTitle] = useState("");
   const [searchGames, setSearchGames] = useState([]);
+
+  const { data, error } = useSWR(
+    "https://www.cheapshark.com/api/1.0/deals?storeID=1&upperPrice=20&pageSize=3",
+    fetcher
+  );
 
   const searchGame = () => {
     fetch(`https://www.cheapshark.com/api/1.0/games?title=${gameTitle}&limit=3`)
@@ -30,6 +40,8 @@ function App() {
             return (
               <div className="game" key={key}>
                 {game.external}
+                <img src={game.thumb} alt={game.title} />
+                <p>${game.cheapest}</p>
               </div>
             );
           })}
@@ -39,6 +51,18 @@ function App() {
         <h1>
           Latest Deals <span role="img"> 🔥 </span>
         </h1>
+        {data &&
+          Array.isArray(data) &&
+          data.map((game, key) => {
+            return (
+              <div className="game" id="deals" key={key}>
+                <h3>{game.title}</h3>
+                <p>Normal Price: ${game.normalPrice}</p>
+                <p>$Deal Price: {game.salePrice}</p>
+                <h3>YOU SAVE {Math.floor(game.savings)}%</h3>
+              </div>
+            );
+          })}
       </div>
     </div>
   );
